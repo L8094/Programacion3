@@ -64,6 +64,8 @@ public class TableroGanador {
         }
     }
 
+    
+    
     public static void main(String[] args) {
         TableroGanador tablero = new TableroGanador();
         tablero.initTablero(); // Inicializa el tablero y las piezas

@@ -1,7 +1,7 @@
 package Modelos;
 
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Tablero {
@@ -9,14 +9,12 @@ public class Tablero {
     private int[][] tablero;
     private int movimientos;
     public static final int size = 4;
-    private Random random;
 
-    ArrayList<Integer> piezas = new ArrayList<>();
+    ArrayList<Integer> piezas;
 
     // -------------------- C O N S T R U C T O R ---------------------------------
     public Tablero() {
         tablero = new int[size][size];
-        random = new Random();
         piezas = new ArrayList<>();
     }
 
@@ -30,59 +28,140 @@ public class Tablero {
     }
 
     private void cargarTablero() {
-        int piezaIndex = 0;  // Para mantener el índice de la pieza que se está colocando
+        int piezaIndex = 0;
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                this.tablero[i][j] = piezas.get(piezaIndex);  // Asignar la pieza correspondiente a la posición (i,j)
-                piezaIndex++;  // Avanzar al siguiente índice de la pieza
+                this.tablero[i][j] = piezas.get(piezaIndex);
+                piezaIndex++;
             }
         }
     }
 
     private void cargarPiezas() {
-        while (piezas.size() < size * size) {
-            int nextNumber = random.nextInt(size * size) + 1; // Genera un número entre 1 y 15
-            if (!piezas.contains(nextNumber)) {
-                piezas.add(nextNumber);
-            }
+        for (int i = 1; i <= size * size; i++) {
+            piezas.add(i);  // Cargar las piezas del 1 al 16
         }
-     
+        // Desordenar las piezas
+        Collections.sort(piezas);
     }
 
-    // Método para imprimir el listado de piezas
     public void imprimirPiezas() {
         System.out.println("Piezas del tablero:");
         for (int pieza : piezas) {
             System.out.print(pieza + " ");
         }
-        System.out.println(); // Para un salto de línea al final
+        System.out.println();
     }
 
-    // Método para imprimir el tablero en forma de matriz
     public void imprimirTablero() {
         System.out.println("Tablero:");
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 System.out.print(tablero[i][j] + " ");
             }
-            System.out.println(); // Para un salto de línea al final de cada fila
+            System.out.println();
         }
+    }
+
+    // Método para mover la pieza 16 a la izquierda
+    public void moverIzquierda() {
+        int[] pos = encontrarPosicionVacia();
+        int fila = pos[0];
+        int columna = pos[1];
+        if (columna > 0) { // verifica que no salga de la matriz
+            tablero[fila][columna] = tablero[fila][columna - 1];
+            tablero[fila][columna - 1] = 16;
+            movimientos++;
+        }
+    }
+
+    // Método para mover la pieza 16 a la derecha
+    public void moverDerecha() {
+        int[] pos = encontrarPosicionVacia();
+        int fila = pos[0];
+        int columna = pos[1];
+        if (columna < size - 1) {
+            tablero[fila][columna] = tablero[fila][columna + 1];
+            tablero[fila][columna + 1] = 16;
+            movimientos++;
+        }
+    }
+
+    // Método para mover la pieza 16 arriba
+    public void moverArriba() {
+        int[] pos = encontrarPosicionVacia();
+        int fila = pos[0];
+        int columna = pos[1];
+        if (fila > 0) {
+            tablero[fila][columna] = tablero[fila - 1][columna];
+            tablero[fila - 1][columna] = 16;
+            movimientos++;
+        }
+    }
+
+    // Método para mover la pieza 16 abajo
+    public void moverAbajo() {
+        int[] pos = encontrarPosicionVacia();
+        int fila = pos[0];
+        int columna = pos[1];
+        if (fila < size - 1) {
+            tablero[fila][columna] = tablero[fila + 1][columna];
+            tablero[fila + 1][columna] = 16;
+            movimientos++;
+        }
+    }
+
+    // Método para encontrar la posición de la pieza vacía (número 16)
+    private int[] encontrarPosicionVacia() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (tablero[i][j] == 16) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return null;
+    }
+    
+    
+    public void moverAleatorio(int cantidad) {
+    	Random random = new Random();
+        int movimiento = random.nextInt(4);
+        if (cantidad == 0) {
+        return;
+        }
+        if(movimiento == 0) {
+        	this.moverDerecha();
+        }
+        if(movimiento == 1) {
+        	this.moverIzquierda();
+        }
+        if(movimiento == 2) {
+        	this.moverArriba();
+        }
+        if(movimiento == 3) {
+        	this.moverAbajo();
+        }
+        cantidad--;
+        moverAleatorio(cantidad);
     }
 
     public static void main(String[] args) {
         Tablero tablero = new Tablero();
-        tablero.initTablero(); // Inicializa el tablero y las piezas
-        tablero.imprimirPiezas(); // Imprime las piezas
-        tablero.imprimirTablero(); // Imprime el tablero
+        tablero.initTablero();
+        tablero.imprimirPiezas();
+        tablero.imprimirTablero();
+        tablero.moverAleatorio(100);
+        tablero.imprimirTablero();
+       // Ejemplos de movimiento
+//        tablero.moverIzquierda();
+//        tablero.moverIzquierda();
+//        tablero.moverIzquierda();
+//        tablero.imprimirTablero();
+//        tablero.moverDerecha();
+//        tablero.moverDerecha();
+//        tablero.moverDerecha();
+//        tablero.imprimirTablero();
     }
 }
-
-
-
-
-
-
-
-
-
 
