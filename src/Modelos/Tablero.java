@@ -22,6 +22,7 @@ public class Tablero {
         try {
             this.cargarPiezas();
             this.cargarTablero();
+            this.moverAleatorio(100);
         } catch (Exception e) {
             System.err.println("Hubo un error al inicializar el tablero: " + e.getMessage());
         }
@@ -145,6 +146,12 @@ public class Tablero {
         cantidad--;
         moverAleatorio(cantidad);
     }
+    
+    
+    
+    public int[][] getTablero() {
+        return tablero;
+    }
 
     public static void main(String[] args) {
         Tablero tablero = new Tablero();
@@ -153,15 +160,7 @@ public class Tablero {
         tablero.imprimirTablero();
         tablero.moverAleatorio(100);
         tablero.imprimirTablero();
-       // Ejemplos de movimiento
-//        tablero.moverIzquierda();
-//        tablero.moverIzquierda();
-//        tablero.moverIzquierda();
-//        tablero.imprimirTablero();
-//        tablero.moverDerecha();
-//        tablero.moverDerecha();
-//        tablero.moverDerecha();
-//        tablero.imprimirTablero();
+       
     }
 }
 
