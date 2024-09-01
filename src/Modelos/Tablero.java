@@ -64,7 +64,7 @@ public class Tablero {
         }
     }
 
-    // Método para mover la pieza 16 a la izquierda
+    // Mï¿½todo para mover la pieza 16 a la izquierda
     public void moverIzquierda() {
         int[] pos = encontrarPosicionVacia();
         int fila = pos[0];
@@ -76,7 +76,7 @@ public class Tablero {
         }
     }
 
-    // Método para mover la pieza 16 a la derecha
+    // Mï¿½todo para mover la pieza 16 a la derecha
     public void moverDerecha() {
         int[] pos = encontrarPosicionVacia();
         int fila = pos[0];
@@ -88,7 +88,7 @@ public class Tablero {
         }
     }
 
-    // Método para mover la pieza 16 arriba
+    // Mï¿½todo para mover la pieza 16 arriba
     public void moverArriba() {
         int[] pos = encontrarPosicionVacia();
         int fila = pos[0];
@@ -100,7 +100,7 @@ public class Tablero {
         }
     }
 
-    // Método para mover la pieza 16 abajo
+    // Mï¿½todo para mover la pieza 16 abajo
     public void moverAbajo() {
         int[] pos = encontrarPosicionVacia();
         int fila = pos[0];
@@ -112,7 +112,7 @@ public class Tablero {
         }
     }
 
-    // Método para encontrar la posición de la pieza vacía (número 16)
+    // Mï¿½todo para encontrar la posiciï¿½n de la pieza vacï¿½a (nï¿½mero 16)
     private int[] encontrarPosicionVacia() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -158,7 +158,7 @@ public class Tablero {
         tablero.initTablero();
         tablero.imprimirPiezas();
         tablero.imprimirTablero();
-        tablero.moverAleatorio(100);
+       //tablero.moverAleatorio(100);
         tablero.imprimirTablero();
        
     }
