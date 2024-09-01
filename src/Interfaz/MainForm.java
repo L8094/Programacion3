@@ -1,26 +1,14 @@
 package Interfaz;
 
 import java.awt.EventQueue;
-import java.awt.Graphics;
-
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JSeparator;
-import javax.swing.JTable;
-
+import javax.swing.JOptionPane;
 import Modelos.Tablero;
-
+import Modelos.TableroGanador;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Color;
 import javax.swing.ImageIcon;
 
 public class MainForm {
@@ -28,66 +16,80 @@ public class MainForm {
 	private JFrame frame;
 	
 	Tablero tablero = new Tablero();
+	TableroGanador tableroGanador = new TableroGanador();
+
 	
-//	private void cargarBotones(Tablero tablero2) {
-//		int[][] matriz = tablero2.getTablero();
-//	    for (int i = 0; i < matriz.length; i++) {
-//	    	for (int j = 0; j < matriz[0].length; j++) {
-//	            JButton btn = new JButton(String.valueOf(matriz[i][j]));
-//	            // A�adir el bot�n al panel
-//	            frame.getContentPane().add(btn);
-//	        }
-//	    }
-//	}
-	
-	
-	private JButton[][] botones; // Una matriz para almacenar los botones
+	private JButton[][] botones; 
+
+//-----------------------------------------------------------------------------------------------------------------------------------
 
 	private void inicializarBotones() {
-	    botones = new JButton[4][4]; // Inicializa la matriz de botones
-
+	    botones = new JButton[4][4]; 
 	    for (int i = 0; i < 4; i++) {
 	        for (int j = 0; j < 4; j++) {
-	            botones[i][j] = new JButton(); // Crea un nuevo botón
-	            // Configuración del botón si es necesario (como tamaño, fondo, etc.)
+	            botones[i][j] = new JButton();            
 	            frame.getContentPane().add(botones[i][j]);
 	        }
 	    }
-
-	    frame.getContentPane().setLayout(new GridLayout(4, 4)); // Configura el layout
+	    frame.getContentPane().setLayout(new GridLayout(4, 4)); 
 	}
-	
+		
+//-----------------------------------------------------------------------------------------------------------------------------------
+
 	private void actualizarBotones(Tablero tablero2) {
 	    int[][] matriz = tablero2.getTablero();
-
 	    for (int i = 0; i < matriz.length; i++) {
 	        for (int j = 0; j < matriz[0].length; j++) {
-	            // Asegúrate de que estás dentro de los límites de la matriz de botones
 	            if (i < botones.length && j < botones[i].length) {
 	            	if(matriz[i][j]==16) {
 	            		botones[i][j].setText("");
 	            	}else {
 	            		botones[i][j].setText(String.valueOf(matriz[i][j]));
-	            	}
-	                
-	                // O si estás usando imágenes, puedes usar:
-	                // botones[i][j].setIcon(new ImageIcon(...)); // con la imagen adecuada
+	            	}	                	         
 	            }
 	        }
+	        cargarImagenes();
 	    }
-	    
-	    // Refrescar la interfaz para que los cambios se muestren
 	    frame.revalidate();
 	    frame.repaint();
 	}
 	
+//-----------------------------------------------------------------------------------------------------------------------------------	
+
+	private void cargarImagenes() {
+	    for (int i = 0; i < botones.length; i++) {
+	        for (int j = 0; j < botones[i].length; j++) {
+	            String texto = botones[i][j].getText(); 
+	            if (!texto.isEmpty()) {
+	                int numero = Integer.parseInt(texto); 
+	                String rutaImagen = "/Imagenes/" + numero + ".jpg"; 
+	                ImageIcon icono = new ImageIcon(getClass().getResource(rutaImagen)); 
+	                botones[i][j].setIcon(icono); 
+	            } else {
+	                botones[i][j].setIcon(new ImageIcon("/Imagenes/16.jpg")); 
+	            }
+	        }
+	    }
+	}
+
+//-----------------------------------------------------------------------------------------------------------------------------------
 	
+	private boolean verificarGanador() {
+	    int[][] matrizActual = tablero.getTablero();
+	    int[][] matrizGanadora = tableroGanador.getTablero(); 
+
+	    for (int i = 0; i < matrizActual.length; i++) {
+	        for (int j = 0; j < matrizActual[i].length; j++) {
+	            if (matrizActual[i][j] != matrizGanadora[i][j]) {
+	                return false; 
+	            }
+	        }
+	    }
+	    return true; 
+	}
 	
-	
-	
-	/**
-	 * Launch the application.
-	 */
+//-----------------------------------------------------------------------------------------------------------------------------------	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -101,53 +103,61 @@ public class MainForm {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
+//--------------------------------------- C R E A - L A - A P L I C A C I O N ----------------------------------------------------------
 	public MainForm() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	
-    	
+//--------------------------------------------- I N I C I A - F R A M E ----------------------------------------------------------------	    	
 	
 	private void initialize() {
 		frame = new JFrame();
-		//escucha si se presiono una tecla
+		
+		
 		frame.addKeyListener(new KeyAdapter() {
-	        public void keyPressed(KeyEvent e) {
-	            int keyCode = e.getKeyCode();
-	            switch (keyCode) {
-	                case KeyEvent.VK_UP:
-	                    tablero.moverAbajo();
-	                    return;
-	                case KeyEvent.VK_DOWN:
-	                    tablero.moverArriba();
-	                    return;
-	                case KeyEvent.VK_LEFT:
-	                    tablero.moverDerecha();
-	                    return;
-	                case KeyEvent.VK_RIGHT:
-	                    tablero.moverIzquierda();
-	                    return;
-	            }
-	            actualizarBotones(tablero); // Actualizar los botones después del movimiento
-	        }
-	    });
+		    public void keyPressed(KeyEvent e) {
+		        int keyCode = e.getKeyCode();
+		        
+		        if (keyCode == KeyEvent.VK_UP) {
+		            tablero.moverArriba();
+		        } else if (keyCode == KeyEvent.VK_DOWN) {
+		            tablero.moverAbajo();
+		        } else if (keyCode == KeyEvent.VK_LEFT) {
+		            tablero.moverIzquierda();
+		        } else if (keyCode == KeyEvent.VK_RIGHT) {
+		            tablero.moverDerecha();
+		        } else {
+		            return; 
+		        }
+		        
+		        actualizarBotones(tablero);
+		        
+		        if (verificarGanador()) {
+		            JOptionPane.showMessageDialog(frame, "�Felicidades, has ganado!");
+		            // Aqu� podr�as finalizar el juego o reiniciarlo
+		            // frame.dispose(); // Para cerrar la ventana
+		        }
+		    }
+		});
+
 	    
-	    frame.setFocusable(true); // Asegúrate de que el frame puede recibir el foco para detectar teclas
+	    frame.setFocusable(true); 
 	    frame.requestFocusInWindow();
 	
 		
-		frame.setBounds(100, 100, 800, 600);
+		frame.setBounds(60, 60, 700, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new GridLayout(4, 4, 0, 0));
+		
+//----------------------------------------------- I N I C I A R - T A B L E R O - G A N A D O R--------------------------------------------		
+		tableroGanador.initTablero();
+	
+//----------------------------------------------------- I N I C I A R - T A B L E R O -----------------------------------------------------		
+	
 		tablero.initTablero();	
 		tablero.imprimirTablero();
-		//cargarBotones(tablero);
+//----------------------------------------------- I N I C I A R - F U N C I O N E S - F R A M E--------------------------------------------
+		
 		inicializarBotones();
 		actualizarBotones(tablero);
 		

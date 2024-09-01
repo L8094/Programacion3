@@ -12,12 +12,14 @@ public class Tablero {
 
     ArrayList<Integer> piezas;
 
-    // -------------------- C O N S T R U C T O R ---------------------------------
+// ---------------------------------------------- C O N S T R U C T O R -------------------------------------------------------------------
     public Tablero() {
         tablero = new int[size][size];
         piezas = new ArrayList<>();
     }
 
+//-----------------------------------------------------------------------------------------------------------------------------------------   
+    
     public void initTablero() {
         try {
             this.cargarPiezas();
@@ -27,6 +29,8 @@ public class Tablero {
             System.err.println("Hubo un error al inicializar el tablero: " + e.getMessage());
         }
     }
+    
+//-----------------------------------------------------------------------------------------------------------------------------------------   
 
     private void cargarTablero() {
         int piezaIndex = 0;
@@ -38,14 +42,18 @@ public class Tablero {
         }
     }
 
+//-----------------------------------------------------------------------------------------------------------------------------------------    
+    
     private void cargarPiezas() {
         for (int i = 1; i <= size * size; i++) {
-            piezas.add(i);  // Cargar las piezas del 1 al 16
+            piezas.add(i); 
         }
-        // Desordenar las piezas
+        
         Collections.sort(piezas);
     }
 
+//-----------------------------------------------------------------------------------------------------------------------------------------    
+    
     public void imprimirPiezas() {
         System.out.println("Piezas del tablero:");
         for (int pieza : piezas) {
@@ -54,6 +62,8 @@ public class Tablero {
         System.out.println();
     }
 
+//-----------------------------------------------------------------------------------------------------------------------------------------    
+    
     public void imprimirTablero() {
         System.out.println("Tablero:");
         for (int i = 0; i < size; i++) {
@@ -64,19 +74,21 @@ public class Tablero {
         }
     }
 
-    // M�todo para mover la pieza 16 a la izquierda
+//-----------------------------------------------------------------------------------------------------------------------------------------
+    
     public void moverIzquierda() {
         int[] pos = encontrarPosicionVacia();
         int fila = pos[0];
         int columna = pos[1];
-        if (columna > 0) { // verifica que no salga de la matriz
+        if (columna > 0) { 
             tablero[fila][columna] = tablero[fila][columna - 1];
             tablero[fila][columna - 1] = 16;
             movimientos++;
         }
     }
 
-    // M�todo para mover la pieza 16 a la derecha
+//-----------------------------------------------------------------------------------------------------------------------------------------   
+ 
     public void moverDerecha() {
         int[] pos = encontrarPosicionVacia();
         int fila = pos[0];
@@ -88,7 +100,8 @@ public class Tablero {
         }
     }
 
-    // M�todo para mover la pieza 16 arriba
+//-----------------------------------------------------------------------------------------------------------------------------------------    
+   
     public void moverArriba() {
         int[] pos = encontrarPosicionVacia();
         int fila = pos[0];
@@ -100,7 +113,8 @@ public class Tablero {
         }
     }
 
-    // M�todo para mover la pieza 16 abajo
+//-----------------------------------------------------------------------------------------------------------------------------------------
+    
     public void moverAbajo() {
         int[] pos = encontrarPosicionVacia();
         int fila = pos[0];
@@ -112,7 +126,8 @@ public class Tablero {
         }
     }
 
-    // M�todo para encontrar la posici�n de la pieza vac�a (n�mero 16)
+//-----------------------------------------------------------------------------------------------------------------------------------------
+    
     private int[] encontrarPosicionVacia() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -124,6 +139,7 @@ public class Tablero {
         return null;
     }
     
+//-----------------------------------------------------------------------------------------------------------------------------------------
     
     public void moverAleatorio(int cantidad) {
     	Random random = new Random();
@@ -147,20 +163,11 @@ public class Tablero {
         moverAleatorio(cantidad);
     }
     
-    
+//-----------------------------------------------------------------------------------------------------------------------------------------    
     
     public int[][] getTablero() {
         return tablero;
     }
 
-    public static void main(String[] args) {
-        Tablero tablero = new Tablero();
-        tablero.initTablero();
-        tablero.imprimirPiezas();
-        tablero.imprimirTablero();
-       //tablero.moverAleatorio(100);
-        tablero.imprimirTablero();
-       
-    }
 }
 
