@@ -16,6 +16,7 @@ public class Tablero {
     public Tablero() {
         tablero = new int[size][size];
         piezas = new ArrayList<>();
+        movimientos = 0;
     }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------   
@@ -168,6 +169,14 @@ public class Tablero {
     public int[][] getTablero() {
         return tablero;
     }
+
+	public int getMovimientos() {
+		return movimientos;
+	}
+	
+	public void setMovimientos(int i) {
+		movimientos= i;
+	}
 
 }
 

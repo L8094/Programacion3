@@ -2,6 +2,7 @@ package Interfaz;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import Modelos.Tablero;
 import Modelos.TableroGanador;
@@ -10,13 +11,17 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.GridLayout;
 import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
-public class MainForm {
+
+public class Juego {
 
 	private JFrame frame;
 	
 	Tablero tablero = new Tablero();
 	TableroGanador tableroGanador = new TableroGanador();
+	JLabel labelPuntaje = new JLabel("Movimientos: 0");
 
 	
 	private JButton[][] botones; 
@@ -31,7 +36,7 @@ public class MainForm {
 	            frame.getContentPane().add(botones[i][j]);
 	        }
 	    }
-	    frame.getContentPane().setLayout(new GridLayout(4, 4)); 
+	    //frame.getContentPane().setLayout(new GridLayout(5, 4)); 
 	}
 		
 //-----------------------------------------------------------------------------------------------------------------------------------
@@ -73,6 +78,14 @@ public class MainForm {
 	}
 
 //-----------------------------------------------------------------------------------------------------------------------------------
+
+	private void actualizarPuntaje() {
+	    int movimientos = tablero.getMovimientos(); // Suponiendo que tienes este método
+	    labelPuntaje.setText("Movimientos: " + movimientos);
+	}
+	
+	
+//-----------------------------------------------------------------------------------------------------------------------------------
 	
 	private boolean verificarGanador() {
 	    int[][] matrizActual = tablero.getTablero();
@@ -94,7 +107,7 @@ public class MainForm {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainForm window = new MainForm();
+					Juego window = new Juego();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -104,7 +117,7 @@ public class MainForm {
 	}
 
 //--------------------------------------- C R E A - L A - A P L I C A C I O N ----------------------------------------------------------
-	public MainForm() {
+	public Juego() {
 		initialize();
 	}
 
@@ -131,6 +144,7 @@ public class MainForm {
 		        }
 		        
 		        actualizarBotones(tablero);
+		        actualizarPuntaje();
 		        
 		        if (verificarGanador()) {
 		            JOptionPane.showMessageDialog(frame, "¡Felicidades, has ganado!");
@@ -145,9 +159,9 @@ public class MainForm {
 	    frame.requestFocusInWindow();
 	
 		
-		frame.setBounds(60, 60, 700, 600);
+		frame.setBounds(60, 60, 770, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new GridLayout(4, 4, 0, 0));
+		frame.getContentPane().setLayout(new GridLayout(5, 4, 0, 0));
 		
 //----------------------------------------------- I N I C I A R - T A B L E R O - G A N A D O R--------------------------------------------		
 		tableroGanador.initTablero();
@@ -157,12 +171,13 @@ public class MainForm {
 		tablero.initTablero();	
 		tablero.imprimirTablero();
 //----------------------------------------------- I N I C I A R - F U N C I O N E S - F R A M E--------------------------------------------
-		
+		tablero.setMovimientos(0);
 		inicializarBotones();
 		actualizarBotones(tablero);
-		
+	    labelPuntaje.setFont(new Font("Arial Black", Font.PLAIN, 19));
+	    labelPuntaje.setHorizontalAlignment(SwingConstants.LEFT);
+	    
+	    frame.getContentPane().add(labelPuntaje);
 		
 	}
-
-	
 }
