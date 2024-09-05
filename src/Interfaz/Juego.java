@@ -13,6 +13,19 @@ import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import javax.swing.JInternalFrame;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import javax.swing.JDesktopPane;
+import javax.swing.JLayeredPane;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
+import java.awt.GridBagLayout;
+import java.awt.CardLayout;
+import javax.swing.BoxLayout;
+import javax.swing.SpringLayout;
+import java.awt.FlowLayout;
 
 
 public class Juego {
@@ -21,22 +34,46 @@ public class Juego {
 	
 	Tablero tablero = new Tablero();
 	TableroGanador tableroGanador = new TableroGanador();
-	JLabel labelPuntaje = new JLabel("Movimientos: 0");
-
+	JPanel panel_numeros = new JPanel();
+	JPanel panel_movimientos = new JPanel();
 	
+	JLabel labelPuntaje = new JLabel();
 	private JButton[][] botones; 
 
 //-----------------------------------------------------------------------------------------------------------------------------------
 
 	private void inicializarBotones() {
-	    botones = new JButton[4][4]; 
+	    botones = new JButton[4][4];
+	    
+	    // Cambiamos el layout del frame al BorderLayout para gestionar mejor los paneles
+	    frame.getContentPane().setLayout(new BorderLayout());
+	    
+	    // Configuración del panel de números
+	    panel_numeros.setBackground(Color.DARK_GRAY);
+	    panel_numeros.setPreferredSize(new Dimension(661, 500)); // Tamaño deseado
+	    panel_numeros.setLayout(new GridLayout(4, 4, 0, 0));
+	    frame.getContentPane().add(panel_numeros, BorderLayout.CENTER); // Añadimos en el centro
+	    
 	    for (int i = 0; i < 4; i++) {
 	        for (int j = 0; j < 4; j++) {
-	            botones[i][j] = new JButton();            
-	            frame.getContentPane().add(botones[i][j]);
+	            botones[i][j] = new JButton();
+	            panel_numeros.add(botones[i][j]);
 	        }
 	    }
-	    //frame.getContentPane().setLayout(new GridLayout(5, 4)); 
+
+	    // Configuración del panel de movimientos
+	    panel_movimientos.setBackground(Color.WHITE);
+	    panel_movimientos.setPreferredSize(new Dimension(660, 100)); // Tamaño deseado
+	    panel_movimientos.setLayout(null); // Mantén el null layout si quieres usar setBounds()
+	    labelPuntaje.setHorizontalAlignment(SwingConstants.CENTER);
+	    
+	    // Agregamos el label con la posición adecuada dentro del panel
+	    panel_movimientos.add(labelPuntaje);
+	    labelPuntaje.setBounds(251, 28, 200, 50); // Ajusta el tamaño y la posición del label
+	   
+	    
+	    // Añadimos el panel de movimientos en la parte inferior (SOUTH)
+	    frame.getContentPane().add(panel_movimientos, BorderLayout.SOUTH);
 	}
 		
 //-----------------------------------------------------------------------------------------------------------------------------------
@@ -159,9 +196,8 @@ public class Juego {
 	    frame.requestFocusInWindow();
 	
 		
-		frame.setBounds(60, 60, 770, 800);
+		frame.setBounds(60, 20, 770, 740);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new GridLayout(5, 4, 0, 0));
 		
 //----------------------------------------------- I N I C I A R - T A B L E R O - G A N A D O R--------------------------------------------		
 		tableroGanador.initTablero();
@@ -174,10 +210,8 @@ public class Juego {
 		tablero.setMovimientos(0);
 		inicializarBotones();
 		actualizarBotones(tablero);
-	    labelPuntaje.setFont(new Font("Arial Black", Font.PLAIN, 19));
-	    labelPuntaje.setHorizontalAlignment(SwingConstants.LEFT);
-	    
-	    frame.getContentPane().add(labelPuntaje);
+		 panel_movimientos.add(labelPuntaje);
+		
 		
 	}
 }
