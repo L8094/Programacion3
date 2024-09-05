@@ -80,7 +80,7 @@ public class Juego {
 //-----------------------------------------------------------------------------------------------------------------------------------
 
 	private void actualizarPuntaje() {
-	    int movimientos = tablero.getMovimientos(); // Suponiendo que tienes este método
+	    int movimientos = tablero.getMovimientos(); 
 	    labelPuntaje.setText("Movimientos: " + movimientos);
 	}
 	
@@ -147,8 +147,8 @@ public class Juego {
 		        actualizarPuntaje();
 		        
 		        if (verificarGanador()) {
-		            JOptionPane.showMessageDialog(frame, "¡Felicidades, has ganado!");
-		            // Aquí podrías finalizar el juego o reiniciarlo
+		            JOptionPane.showMessageDialog(frame, "Â¡Felicidades, has ganado!");
+		            // AquÃ­ podrÃ­as finalizar el juego o reiniciarlo
 		            // frame.dispose(); // Para cerrar la ventana
 		        }
 		    }
