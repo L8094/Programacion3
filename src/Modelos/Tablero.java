@@ -170,13 +170,17 @@ public class Tablero {
         return tablero;
     }
 
+	
 	public int getMovimientos() {
 		return movimientos;
 	}
-	
+
 	public void setMovimientos(int i) {
 		movimientos= i;
+		
 	}
+	
+	
 
 }
 

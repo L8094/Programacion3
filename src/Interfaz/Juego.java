@@ -13,19 +13,10 @@ import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.JInternalFrame;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Rectangle;
-import javax.swing.JDesktopPane;
-import javax.swing.JLayeredPane;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
-import java.awt.GridBagLayout;
-import java.awt.CardLayout;
-import javax.swing.BoxLayout;
-import javax.swing.SpringLayout;
-import java.awt.FlowLayout;
 
 
 public class Juego {
@@ -34,10 +25,10 @@ public class Juego {
 	
 	Tablero tablero = new Tablero();
 	TableroGanador tableroGanador = new TableroGanador();
-	JPanel panel_numeros = new JPanel();
+	JPanel panel_botones = new JPanel();
 	JPanel panel_movimientos = new JPanel();
 	
-	JLabel labelPuntaje = new JLabel();
+	JLabel labelPuntaje = new JLabel("Movimientos: 0");
 	private JButton[][] botones; 
 
 //-----------------------------------------------------------------------------------------------------------------------------------
@@ -45,34 +36,31 @@ public class Juego {
 	private void inicializarBotones() {
 	    botones = new JButton[4][4];
 	    
-	    // Cambiamos el layout del frame al BorderLayout para gestionar mejor los paneles
 	    frame.getContentPane().setLayout(new BorderLayout());
 	    
-	    // Configuración del panel de números
-	    panel_numeros.setBackground(Color.DARK_GRAY);
-	    panel_numeros.setPreferredSize(new Dimension(661, 500)); // Tamaño deseado
-	    panel_numeros.setLayout(new GridLayout(4, 4, 0, 0));
-	    frame.getContentPane().add(panel_numeros, BorderLayout.CENTER); // Añadimos en el centro
+	    panel_botones.setPreferredSize(new Dimension(661, 500)); 
+	    panel_botones.setLayout(new GridLayout(4, 4, 0, 0));
+	    frame.getContentPane().add(panel_botones, BorderLayout.CENTER); 
 	    
+	  
 	    for (int i = 0; i < 4; i++) {
 	        for (int j = 0; j < 4; j++) {
 	            botones[i][j] = new JButton();
-	            panel_numeros.add(botones[i][j]);
+	            panel_botones.add(botones[i][j]);
 	        }
 	    }
+	}
+	
+//-----------------------------------------------------------------------------------------------------------------------------------
 
-	    // Configuración del panel de movimientos
-	    panel_movimientos.setBackground(Color.WHITE);
-	    panel_movimientos.setPreferredSize(new Dimension(660, 100)); // Tamaño deseado
-	    panel_movimientos.setLayout(null); // Mantén el null layout si quieres usar setBounds()
+	 private void inicializarPanelMovimientos() {
+	    panel_movimientos.setBackground(new Color(204, 204, 102));
+	    panel_movimientos.setPreferredSize(new Dimension(660, 100)); 
+	    panel_movimientos.setLayout(null);
+	    labelPuntaje.setFont(new Font("Arial Black", Font.PLAIN, 20));
 	    labelPuntaje.setHorizontalAlignment(SwingConstants.CENTER);
-	    
-	    // Agregamos el label con la posición adecuada dentro del panel
 	    panel_movimientos.add(labelPuntaje);
-	    labelPuntaje.setBounds(251, 28, 200, 50); // Ajusta el tamaño y la posición del label
-	   
-	    
-	    // Añadimos el panel de movimientos en la parte inferior (SOUTH)
+	    labelPuntaje.setBounds(251, 28, 200, 50); 
 	    frame.getContentPane().add(panel_movimientos, BorderLayout.SOUTH);
 	}
 		
@@ -162,6 +150,7 @@ public class Juego {
 	
 	private void initialize() {
 		frame = new JFrame();
+		frame.setResizable(false);
 		
 		
 		frame.addKeyListener(new KeyAdapter() {
@@ -182,9 +171,11 @@ public class Juego {
 		        
 		        actualizarBotones(tablero);
 		        actualizarPuntaje();
+		        System.out.println(tablero.getMovimientos());
 		        
 		        if (verificarGanador()) {
-		            JOptionPane.showMessageDialog(frame, "¡Felicidades, has ganado!");
+		        	
+		        	JOptionPane.showMessageDialog(frame, "¡Felicidades, has ganado!");
 		            // Aquí podrías finalizar el juego o reiniciarlo
 		            // frame.dispose(); // Para cerrar la ventana
 		        }
@@ -209,9 +200,11 @@ public class Juego {
 //----------------------------------------------- I N I C I A R - F U N C I O N E S - F R A M E--------------------------------------------
 		tablero.setMovimientos(0);
 		inicializarBotones();
+		inicializarPanelMovimientos();
 		actualizarBotones(tablero);
-		 panel_movimientos.add(labelPuntaje);
 		
+		System.out.print(Menu.getNombre());	
 		
 	}
 }
+

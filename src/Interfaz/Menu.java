@@ -4,30 +4,81 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import javax.swing.JButton;
-import javax.swing.BoxLayout;
-import java.awt.CardLayout;
-import java.awt.FlowLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Menu {
 
 	private JFrame frame;
-	private JTextField txtIngreseNombre;
+	private JTextField ingreso;
+	private static String nombre;
+	
+//-----------------------------------------------------------------------------------------------------------------------------------	
+	
+	public void cartelIngreseNombre() {	
+		JTextPane txtpnIngreseNombre = new JTextPane();
+		txtpnIngreseNombre.setEditable(false);
+		txtpnIngreseNombre.setText("ingrese nombre:");
+		txtpnIngreseNombre.setBackground(Color.BLACK);
+		txtpnIngreseNombre.setForeground(Color.WHITE);
+		txtpnIngreseNombre.setToolTipText("");
+		txtpnIngreseNombre.setBounds(171, 524, 99, 23);
+		frame.getContentPane().add(txtpnIngreseNombre);
+}
+	
+//-----------------------------------------------------------------------------------------------------------------------------------
+		
+	public void ingresoNombre() {
+		ingreso = new JTextField();
+		ingreso.setForeground(Color.WHITE);
+		ingreso.setBackground(Color.GRAY);
+		ingreso.setHorizontalAlignment(SwingConstants.CENTER);
+		ingreso.setBounds(280, 524, 205, 20);
+		frame.getContentPane().add(ingreso);
+		ingreso.setColumns(10);
+	}
+	
+//-----------------------------------------------------------------------------------------------------------------------------------
+	
+	public void botonComenzar() {
+	JButton btnNewButton = new JButton("comenzar");
+	btnNewButton.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			nombre += ingreso.getText();
+			frame.setVisible(false);
+			Juego.main(null);
+		}
+	});
+	btnNewButton.setBounds(319, 573, 124, 23);
+	frame.getContentPane().add(btnNewButton);
+}
+	
+//-----------------------------------------------------------------------------------------------------------------------------------
+	
+	private void cargarFondo() {
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(27, 11, 700, 675);
+		lblNewLabel.setIcon(new ImageIcon(Menu.class.getResource("/Imagenes/fondo.jpg")));
+		frame.getContentPane().add(lblNewLabel);
+		
+	}
 
-	/**
-	 * Launch the application.
-	 */
+//-----------------------------------------------------------------------------------------------------------------------------------
+		
+	public static String getNombre() {
+		return nombre;
+	}	
+	
+//-----------------------------------------------------------------------------------------------------------------------------------
+	
 	public static void main(String[] args) {
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -41,53 +92,24 @@ public class Menu {
 	}
 
 	
-	
-	
-	/**
-	 * Create the application.
-	 */
 	public Menu() {
 		initialize();
 	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(60, 60, 710, 600);
+		frame.setResizable(false);
+		frame.setBounds(60, 20, 770, 740);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JTextPane txtpnIngreseNombre = new JTextPane();
-		txtpnIngreseNombre.setEditable(false);
-		txtpnIngreseNombre.setText("ingrese nombre:");
-		txtpnIngreseNombre.setBackground(Color.BLACK);
-		txtpnIngreseNombre.setForeground(Color.WHITE);
-		txtpnIngreseNombre.setToolTipText("");
-		txtpnIngreseNombre.setBounds(136, 450, 99, 23);
-		frame.getContentPane().add(txtpnIngreseNombre);
+		nombre= "";
 		
+		cartelIngreseNombre();
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setBounds(199, 113, 297, 276);
-		frame.getContentPane().add(lblNewLabel_1);
+		ingresoNombre();
+	
+		botonComenzar();
 		
-		txtIngreseNombre = new JTextField();
-		txtIngreseNombre.setForeground(Color.WHITE);
-		txtIngreseNombre.setBackground(Color.GRAY);
-		txtIngreseNombre.setHorizontalAlignment(SwingConstants.CENTER);
-		txtIngreseNombre.setBounds(245, 450, 205, 20);
-		frame.getContentPane().add(txtIngreseNombre);
-		txtIngreseNombre.setColumns(10);
-		
-		JButton btnNewButton = new JButton("comenzar");
-		btnNewButton.setBounds(285, 481, 124, 23);
-		frame.getContentPane().add(btnNewButton);
-		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(-3, 0, 700, 561);
-		lblNewLabel.setIcon(new ImageIcon(Menu.class.getResource("/Imagenes/fondo.jpg")));
-		frame.getContentPane().add(lblNewLabel);
+		cargarFondo();	
 	}
 }
