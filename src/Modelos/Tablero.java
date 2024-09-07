@@ -7,7 +7,7 @@ import java.util.Random;
 public class Tablero {
 
     private int[][] tablero;
-    private int movimientos;
+    private static int movimientos;
     public static final int size = 4;
 
     ArrayList<Integer> piezas;
@@ -171,7 +171,7 @@ public class Tablero {
     }
 
 	
-	public int getMovimientos() {
+	public static int getMovimientos() {
 		return movimientos;
 	}
 

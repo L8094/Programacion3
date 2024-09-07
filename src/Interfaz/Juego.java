@@ -3,7 +3,6 @@ package Interfaz;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import Modelos.Tablero;
 import Modelos.TableroGanador;
 import javax.swing.JButton;
@@ -105,7 +104,7 @@ public class Juego {
 //-----------------------------------------------------------------------------------------------------------------------------------
 
 	private void actualizarPuntaje() {
-	    int movimientos = tablero.getMovimientos(); 
+	    int movimientos = Tablero.getMovimientos(); 
 	    labelPuntaje.setText("Movimientos: " + movimientos);
 	}
 	
@@ -125,6 +124,16 @@ public class Juego {
 	    }
 	    return true; 
 	}
+	
+	
+	
+	private boolean limiteMovimientos() {
+		if(Tablero.getMovimientos() < 20) {
+		return false;
+	}
+		return true;
+	}
+
 	
 //-----------------------------------------------------------------------------------------------------------------------------------	
 
@@ -171,17 +180,20 @@ public class Juego {
 		        
 		        actualizarBotones(tablero);
 		        actualizarPuntaje();
-		        System.out.println(tablero.getMovimientos());
+		        System.out.println(Tablero.getMovimientos());
 		        
 		        if (verificarGanador()) {
-		        	
-		        	JOptionPane.showMessageDialog(frame, "¡Felicidades, has ganado!");
-		            // Aquí podrías finalizar el juego o reiniciarlo
-		            // frame.dispose(); // Para cerrar la ventana
-		        }
-		    }
+		        	frame.setVisible(false);
+					Win.main(null);
+		        } else if (limiteMovimientos()) {
+					frame.setVisible(false);
+					GameOver.main(null);
+				}
+		    
+		       }
+		    
+		
 		});
-
 	    
 	    frame.setFocusable(true); 
 	    frame.requestFocusInWindow();

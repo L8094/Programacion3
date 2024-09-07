@@ -21,11 +21,11 @@ public class Menu {
 	private JTextField ingreso;
 	private static String nombre;
 	
-	private int direccion = 1;  // 1 para mover hacia la derecha, -1 para mover hacia la izquierda
-    private int ejeXRompecabezas = 226; // Posición inicial en x de la etiqueta "Rompecabezas"
-    private int ejeXDeslizante = 254;   // Posición inicial en x de la etiqueta "Deslizante"
+	private int direccion = 1;  
+    private int ejeXRompecabezas = 226; 
+    private int ejeXDeslizante = 254;   
 
-
+//-----------------------------------------------------------------------------------------------------------------------------------
     
     public void titulo() {
 
@@ -63,21 +63,20 @@ public class Menu {
 	        });
 	        timer.start();
 	    }
-    
-		
-    
+        
 	
 //-----------------------------------------------------------------------------------------------------------------------------------	
 	
 	public void cartelIngreseNombre() {	
 
 		JTextPane txtpnIngreseNombre = new JTextPane();
+		txtpnIngreseNombre.setFont(new Font("Arial Black", Font.PLAIN, 12));
 		txtpnIngreseNombre.setEditable(false);
 		txtpnIngreseNombre.setText("Ingrese nombre:");
-		txtpnIngreseNombre.setBackground(Color.BLACK);
+		txtpnIngreseNombre.setBackground(new Color(139, 0, 139));
 		txtpnIngreseNombre.setForeground(Color.WHITE);
 		txtpnIngreseNombre.setToolTipText("");
-		txtpnIngreseNombre.setBounds(171, 524, 99, 23);
+		txtpnIngreseNombre.setBounds(210, 524, 67, 38);
 		frame.getContentPane().add(txtpnIngreseNombre);
 }
 	
@@ -85,10 +84,11 @@ public class Menu {
 		
 	public void ingresoNombre() {
 		ingreso = new JTextField();
+		ingreso.setFont(new Font("Arial Black", Font.PLAIN, 14));
 		ingreso.setForeground(Color.WHITE);
-		ingreso.setBackground(Color.GRAY);
+		ingreso.setBackground(new Color(106, 90, 205));
 		ingreso.setHorizontalAlignment(SwingConstants.CENTER);
-		ingreso.setBounds(280, 524, 205, 20);
+		ingreso.setBounds(280, 524, 205, 38);
 		frame.getContentPane().add(ingreso);
 		ingreso.setColumns(10);
 	}
