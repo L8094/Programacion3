@@ -5,14 +5,18 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Frame;
 
 public class Menu {
 
@@ -85,9 +89,7 @@ public class Menu {
 			ingreso.setColumns(10);
 			
 			ingreso.addActionListener(new ActionListener() {
-	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	            // Acción al presionar "Enter"
 	            nombre += ingreso.getText();
 	            frame.setVisible(false);
 	            Juego.main(null);
@@ -127,6 +129,28 @@ public class Menu {
 			frame.getContentPane().add(lblNewLabel);
 			
 	}
+	
+//-----------------------------------------------------------------------------------------------------------------------------------
+
+	private void preguntarAlSalir() {
+		
+	    frame.addWindowListener(new WindowAdapter() {
+	        public void windowClosing(WindowEvent e) {
+	            int opcionElegida = JOptionPane.showConfirmDialog(
+	                    frame,
+	                    "¿Seguro que quiere salir?",
+	                    "SALIR DEL JUEGO",
+	                    JOptionPane.YES_NO_OPTION, 
+	                    JOptionPane.QUESTION_MESSAGE 
+	            );
+	            
+	            if (opcionElegida == JOptionPane.YES_OPTION) {
+	                frame.dispose();
+	            }
+	        }
+	    });
+	}
+	
 
 //-----------------------------------------------------------------------------------------------------------------------------------
 		
@@ -164,7 +188,8 @@ public class Menu {
 			frame = new JFrame();
 			frame.setResizable(false);
 			frame.setBounds(60, 20, 770, 740);
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			preguntarAlSalir();
 			frame.getContentPane().setLayout(null);
 			frame.setTitle("Menu Principal");
 			nombre= "";

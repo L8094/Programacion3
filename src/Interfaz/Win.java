@@ -6,12 +6,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import Modelos.Tablero;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 
@@ -96,7 +100,28 @@ public class Win {
 			frame.getContentPane().add(lblNewLabel);
 	}
 	
+//-----------------------------------------------------------------------------------------------------------------------------------	
 
+	private void preguntarAlSalir() {
+		
+	    frame.addWindowListener(new WindowAdapter() {
+	        public void windowClosing(WindowEvent e) {
+	            int opcionElegida = JOptionPane.showConfirmDialog(
+	                    frame,
+	                    "¿Seguro que quiere salir?",
+	                    "SALIR DEL JUEGO",
+	                    JOptionPane.YES_NO_OPTION, 
+	                    JOptionPane.QUESTION_MESSAGE 
+	            );
+	            
+	            if (opcionElegida == JOptionPane.YES_OPTION) {
+	                frame.dispose();
+	            }
+	        }
+	    });
+	}
+
+	
 //-----------------------------------------------------------------------------------------------------------------------------------	
 	
 	public static void main(String[] args) {
@@ -128,7 +153,8 @@ public class Win {
 			frame.setTitle("	F E L I C I T A C I O N E S ! ! ! ! ");
 			frame.setResizable(false);
 			frame.setBounds(60, 20, 770, 740);
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			preguntarAlSalir();
 			frame.getContentPane().setLayout(null);
 			panelGanador();
 			panelMovimientos();

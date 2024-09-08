@@ -4,10 +4,13 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 
 import Modelos.Tablero;
@@ -84,6 +87,27 @@ public class GameOver {
 			frame.getContentPane().add(Fondo);
 	}
 	
+//-----------------------------------------------------------------------------------------------------------------------------------	
+
+	private void preguntarAlSalir() {
+		
+		    frame.addWindowListener(new WindowAdapter() {
+		        public void windowClosing(WindowEvent e) {
+		            int opcionElegida = JOptionPane.showConfirmDialog(
+		                    frame,
+		                    "¿Seguro que quiere salir?",
+		                    "SALIR DEL JUEGO",
+		                    JOptionPane.YES_NO_OPTION, 
+		                    JOptionPane.QUESTION_MESSAGE 
+		            );
+		            
+		            if (opcionElegida == JOptionPane.YES_OPTION) {
+		                frame.dispose();
+		            }
+		        }
+		    });
+	}
+	
 
 //-----------------------------------------------------------------------------------------------------------------------------------	
 		
@@ -115,7 +139,8 @@ public class GameOver {
 			frame.setTitle("	P E R D I S T E ! ! ! ");
 			frame.setResizable(false);
 			frame.setBounds(60, 20, 770, 740);
-			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			preguntarAlSalir();
 			frame.getContentPane().setLayout(null);
 			
 			panelPededor();

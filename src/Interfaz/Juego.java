@@ -3,6 +3,8 @@ package Interfaz;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import Modelos.Tablero;
 import Modelos.TableroGanador;
 import javax.swing.JButton;
@@ -11,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
@@ -166,6 +170,29 @@ public class Juego {
 			return true;
 	}
 	
+	
+//-----------------------------------------------------------------------------------------------------------------------------------	
+	
+	private void preguntarAlSalir() {
+		
+	    frame.addWindowListener(new WindowAdapter() {
+	        public void windowClosing(WindowEvent e) {
+	            int opcionElegida = JOptionPane.showConfirmDialog(
+	                    frame,
+	                    "¿Seguro que quiere salir?",
+	                    "SALIR DEL JUEGO",
+	                    JOptionPane.YES_NO_OPTION, 
+	                    JOptionPane.QUESTION_MESSAGE 
+	            );
+	            
+	            if (opcionElegida == JOptionPane.YES_OPTION) {
+	                frame.dispose();
+	            }
+	        }
+	    });
+	}
+
+	
 //-----------------------------------------------------------------------------------------------------------------------------------	
 
 	public static void main(String[] args) {
@@ -225,8 +252,8 @@ public class Juego {
 	    frame.setFocusable(true); 
 	    frame.requestFocusInWindow();
 		frame.setBounds(60, 20, 770, 740);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		preguntarAlSalir();
 		
 //----------------------------------------------- I N I C I A R - T A B L E R O - G A N A D O R--------------------------------------------		
 		
