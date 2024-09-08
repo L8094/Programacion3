@@ -11,6 +11,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextPane;
 
 import Modelos.Tablero;
+import javax.swing.ImageIcon;
+import javax.swing.DropMode;
+import javax.swing.JSplitPane;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class GameOver {
 
@@ -18,33 +23,40 @@ public class GameOver {
 
 	
 	public void panelPededor() {
-	JTextPane txtpnPuntuacion = new JTextPane();
-	txtpnPuntuacion.setEditable(false);
-	txtpnPuntuacion.setFont(new Font("Arial Black", Font.PLAIN, 20));
-	txtpnPuntuacion.setText(Menu.getNombre() + " Perdiste " );
-	txtpnPuntuacion.setBounds(264, 311, 195, 35);
-	frame.getContentPane().add(txtpnPuntuacion);
+		
+			JLabel MsjLost = new JLabel("");
+			MsjLost.setHorizontalAlignment(SwingConstants.CENTER);
+			MsjLost.setFont(new Font("Monospaced", Font.BOLD, 40));
+			MsjLost.setForeground(new Color(255, 255, 255));
+			MsjLost.setBounds(0, 102, 754, 97);
+			MsjLost.setText(( "Hasta la próxima "+ Menu.getNombre() ));
+			frame.getContentPane().add(MsjLost);
 	}
 	
 //-----------------------------------------------------------------------------------------------------------------------------------	
 	
 	
 	public void panelMovimientos() {
-	JTextPane txtpnPuntuacion = new JTextPane();
-	txtpnPuntuacion.setEditable(false);
-	txtpnPuntuacion.setFont(new Font("Arial Black", Font.PLAIN, 20));
-	txtpnPuntuacion.setText("cantidad de movimientos : " + Tablero.getMovimientos());
-	txtpnPuntuacion.setBounds(197, 384, 357, 35);
-	frame.getContentPane().add(txtpnPuntuacion);
+		
+		{
+			JLabel MovimientosRealizados = new JLabel("New label");
+			MovimientosRealizados.setFont(new Font("Monospaced", Font.BOLD, 30));
+			MovimientosRealizados.setForeground(new Color(255, 255, 255));
+			MovimientosRealizados.setHorizontalAlignment(SwingConstants.CENTER);
+			MovimientosRealizados.setBounds(0, 509, 754, 69);
+			MovimientosRealizados.setText("Movimientos realizados: " + Tablero.getMovimientos());
+			frame.getContentPane().add(MovimientosRealizados);
+		}
+
 	}
 	
 //-----------------------------------------------------------------------------------------------------------------------------------	
 		
 	public void botonVolverJugar() {
-	JButton btnNewButton = new JButton("volver a jugar");
-	btnNewButton.setBounds(122, 539, 150, 23);
-	frame.getContentPane().add(btnNewButton);
-	btnNewButton.addActionListener(new ActionListener() {
+	JButton doItAgain = new JButton("Volver a jugar");
+	doItAgain.setBounds(131, 585, 150, 35);
+	frame.getContentPane().add(doItAgain);
+	doItAgain.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			frame.setVisible(false);
 			Menu.main(null);
@@ -55,10 +67,10 @@ public class GameOver {
 //-----------------------------------------------------------------------------------------------------------------------------------	
 		
 	public void botonSalirJuego() {
-		JButton btnNewButton_1 = new JButton("salir del juego");
-		btnNewButton_1.setBounds(469, 539, 150, 23);
-		frame.getContentPane().add(btnNewButton_1);
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton exit = new JButton("Salir del juego");
+		exit.setBounds(478, 585, 150, 35);
+		frame.getContentPane().add(exit);
+		exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 			}
@@ -69,9 +81,12 @@ public class GameOver {
 //-----------------------------------------------------------------------------------------------------------------------------------	
 	
 	public void labelFondo() {
-	JLabel lblNewLabel = new JLabel("");
-	lblNewLabel.setBounds(0, 0, 754, 701);
-	frame.getContentPane().add(lblNewLabel);
+	JLabel Fondo = new JLabel("");
+	Fondo.setIcon(new ImageIcon(GameOver.class.getResource("/Imagenes/gameOver.jpg")));
+	Fondo.setBounds(0, 0, 754, 701);
+	frame.getContentPane().add(Fondo);
+
+
 	}
 	
 
@@ -90,8 +105,6 @@ public class GameOver {
 		});
 	}
 
-	
-	
 	
 	public GameOver() {
 		initialize();
@@ -117,5 +130,4 @@ public class GameOver {
 		
 		
 	}
-
 }

@@ -16,6 +16,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
+import javax.swing.border.MatteBorder;
 
 
 public class Juego {
@@ -29,6 +30,9 @@ public class Juego {
 	
 	JLabel labelPuntaje = new JLabel("Movimientos: 0");
 	private JButton[][] botones; 
+	
+    boolean mostrarNumeros = false;
+
 
 //-----------------------------------------------------------------------------------------------------------------------------------
 
@@ -53,49 +57,76 @@ public class Juego {
 //-----------------------------------------------------------------------------------------------------------------------------------
 
 	 private void inicializarPanelMovimientos() {
-	    panel_movimientos.setBackground(new Color(204, 204, 102));
+	    panel_movimientos.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 255)));
+	    panel_movimientos.setBackground(new Color(25, 25, 112));
 	    panel_movimientos.setPreferredSize(new Dimension(660, 100)); 
 	    panel_movimientos.setLayout(null);
-	    labelPuntaje.setFont(new Font("Arial Black", Font.PLAIN, 20));
+	    labelPuntaje.setForeground(new Color(255, 255, 255));
+	    labelPuntaje.setFont(new Font("Monospaced", Font.BOLD, 20));
 	    labelPuntaje.setHorizontalAlignment(SwingConstants.CENTER);
 	    panel_movimientos.add(labelPuntaje);
-	    labelPuntaje.setBounds(251, 28, 200, 50); 
+	    labelPuntaje.setBounds(544, 27, 200, 50); 
 	    frame.getContentPane().add(panel_movimientos, BorderLayout.SOUTH);
+
 	}
 		
 //-----------------------------------------------------------------------------------------------------------------------------------
 
-	private void actualizarBotones(Tablero tablero2) {
-	    int[][] matriz = tablero2.getTablero();
-	    for (int i = 0; i < matriz.length; i++) {
-	        for (int j = 0; j < matriz[0].length; j++) {
-	            if (i < botones.length && j < botones[i].length) {
-	            	if(matriz[i][j]==16) {
-	            		botones[i][j].setText("");
-	            	}else {
-	            		botones[i][j].setText(String.valueOf(matriz[i][j]));
-	            	}	                	         
-	            }
-	        }
-	        cargarImagenes();
-	    }
-	    frame.revalidate();
-	    frame.repaint();
-	}
+	 
+	 private void botonAyuda() {
+		 
+		    JButton btnAyuda = new JButton("?");
+		    btnAyuda.setBounds(44, 28, 133, 50); 
+		    btnAyuda.setFont(new Font("Arial Black", Font.PLAIN, 16));
+		    panel_movimientos.add(btnAyuda);
+		    
+		    btnAyuda.addActionListener(e -> {
+		        mostrarNumeros = !mostrarNumeros;  
+		        actualizarBotones(tablero);  
+		        frame.requestFocusInWindow();
+		    });
+
+	 }
+	 
+//-----------------------------------------------------------------------------------------------------------------------------------
+
+	 private void actualizarBotones(Tablero tablero2) {
+		    int[][] matriz = tablero2.getTablero();
+		    for (int i = 0; i < matriz.length; i++) {
+		        for (int j = 0; j < matriz[0].length; j++) {
+		            if (i < botones.length && j < botones[i].length) {
+		                if (matriz[i][j] == 16) {
+		                    botones[i][j].setText("");
+		                } else {
+		                    botones[i][j].setText(String.valueOf(matriz[i][j]));
+		                }
+		            }
+		        }
+			    cargarImagenes();  
+		    }
+		    frame.revalidate();
+		    frame.repaint();
+		}
+
 	
 //-----------------------------------------------------------------------------------------------------------------------------------	
 
 	private void cargarImagenes() {
 	    for (int i = 0; i < botones.length; i++) {
 	        for (int j = 0; j < botones[i].length; j++) {
-	            String texto = botones[i][j].getText(); 
-	            if (!texto.isEmpty()) {
-	                int numero = Integer.parseInt(texto); 
-	                String rutaImagen = "/Imagenes/" + numero + ".jpg"; 
-	                ImageIcon icono = new ImageIcon(getClass().getResource(rutaImagen)); 
-	                botones[i][j].setIcon(icono); 
+	            String texto = botones[i][j].getText();
+	            if (mostrarNumeros) {
+	                botones[i][j].setText(texto); 
+	                botones[i][j].setIcon(null);  
 	            } else {
-	                botones[i][j].setIcon(new ImageIcon("/Imagenes/16.jpg")); 
+	                if (!texto.isEmpty()) {
+	                    int numero = Integer.parseInt(texto);
+	                    String rutaImagen = "/Imagenes/" + numero + ".jpg"; 
+	                    ImageIcon icono = new ImageIcon(getClass().getResource(rutaImagen));
+	                    botones[i][j].setIcon(icono);  // Muestra la imagen
+	                } else {
+	                    botones[i][j].setIcon(new ImageIcon("/Imagenes/16.jpg"));
+	                }
 	            }
 	        }
 	    }
@@ -210,6 +241,9 @@ public class Juego {
 		tablero.initTablero();	
 		tablero.imprimirTablero();
 //----------------------------------------------- I N I C I A R - F U N C I O N E S - F R A M E--------------------------------------------
+		frame.setTitle("- - - - |||| R O M P E C A B E Z A S  D E S L I Z A N T E  |||| - - - - 			Jugador: " + Menu.getNombre());
+		
+		botonAyuda();
 		tablero.setMovimientos(0);
 		inicializarBotones();
 		inicializarPanelMovimientos();

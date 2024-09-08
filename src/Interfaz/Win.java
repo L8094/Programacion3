@@ -1,11 +1,11 @@
 package Interfaz;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTextPane;
 
 import Modelos.Tablero;
 
@@ -13,6 +13,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class Win {
 
@@ -20,30 +21,35 @@ public class Win {
 	
 //-----------------------------------------------------------------------------------------------------------------------------------		
 	public void panelGanador() {
-		JTextPane txtpnPuntuacion = new JTextPane();
-		txtpnPuntuacion.setEditable(false);
-		txtpnPuntuacion.setFont(new Font("Arial Black", Font.PLAIN, 20));
-		txtpnPuntuacion.setText("Felicitaciones " + Menu.getNombre() + " ganaste " );
-		txtpnPuntuacion.setBounds(199, 303, 342, 35);
-		frame.getContentPane().add(txtpnPuntuacion);
-		}
 
+			JLabel msjWin = new JLabel("");
+			msjWin.setHorizontalAlignment(SwingConstants.CENTER);
+			msjWin.setFont(new Font("Monospaced", Font.BOLD, 40));
+			msjWin.setForeground(new Color(255, 255, 255));
+			msjWin.setBounds(0, -24, 754, 97);
+			msjWin.setText(( "Felicitaciones "+ Menu.getNombre()+ "!!!"));
+			frame.getContentPane().add(msjWin);
+		}
 //-----------------------------------------------------------------------------------------------------------------------------------	
 
 	public void panelMovimientos() {
-	JTextPane txtpnPuntuacion = new JTextPane();
-	txtpnPuntuacion.setEditable(false);
-	txtpnPuntuacion.setFont(new Font("Arial Black", Font.PLAIN, 20));
-	txtpnPuntuacion.setText("cantidad de movimientos : " + Tablero.getMovimientos());
-	txtpnPuntuacion.setBounds(187, 370, 365, 35);
-	frame.getContentPane().add(txtpnPuntuacion);
+		JLabel MovimientosRealizados = new JLabel("New label");
+		MovimientosRealizados.setBackground(new Color(102, 51, 153));
+		MovimientosRealizados.setFont(new Font("Monospaced", Font.BOLD, 30));
+		MovimientosRealizados.setForeground(new Color(102, 51, 153));
+		MovimientosRealizados.setHorizontalAlignment(SwingConstants.CENTER);
+		MovimientosRealizados.setBounds(0, 441, 754, 69);
+		MovimientosRealizados.setText("Movimientos realizados: " + Tablero.getMovimientos());
+		frame.getContentPane().add(MovimientosRealizados);
 	}
 	
 //-----------------------------------------------------------------------------------------------------------------------------------	
 		
 	public void botonVolverJugar() {
-		JButton btnNewButton = new JButton("volver a jugar");
-		btnNewButton.setBounds(122, 539, 150, 23);
+		JButton btnNewButton = new JButton("Volver a jugar");
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBackground(new Color(102, 0, 204));
+		btnNewButton.setBounds(123, 516, 150, 33);
 		frame.getContentPane().add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -56,8 +62,10 @@ public class Win {
 //-----------------------------------------------------------------------------------------------------------------------------------	
 		
 	public void botonSalirJuego() {
-		JButton btnNewButton_1 = new JButton("salir del juego");
-		btnNewButton_1.setBounds(469, 539, 150, 23);
+		JButton btnNewButton_1 = new JButton("Salir del juego");
+		btnNewButton_1.setForeground(new Color(255, 255, 255));
+		btnNewButton_1.setBackground(new Color(102, 0, 204));
+		btnNewButton_1.setBounds(475, 516, 150, 33);
 		frame.getContentPane().add(btnNewButton_1);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -71,6 +79,7 @@ public class Win {
 	
 	public void labelFondo() {
 	JLabel lblNewLabel = new JLabel("");
+	lblNewLabel.setIcon(new ImageIcon(Win.class.getResource("/Imagenes/win.jpg")));
 	lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 	lblNewLabel.setBounds(0, 0, 754, 701);
 	frame.getContentPane().add(lblNewLabel);
