@@ -33,7 +33,7 @@ public class GameOver {
 			MsjLost.setFont(new Font("Monospaced", Font.BOLD, 40));
 			MsjLost.setForeground(new Color(255, 255, 255));
 			MsjLost.setBounds(0, 60, 754, 97);
-			MsjLost.setText(( "Hasta la próxima "+ Menu.getNombre() ));
+			MsjLost.setText(( "Hasta la proxima "+ Menu.getNombre() ));
 			frame.getContentPane().add(MsjLost);
 	}
 	
@@ -95,7 +95,7 @@ public class GameOver {
 		        public void windowClosing(WindowEvent e) {
 		            int opcionElegida = JOptionPane.showConfirmDialog(
 		                    frame,
-		                    "¿Seguro que quiere salir?",
+		                    "�Seguro que quiere salir?",
 		                    "SALIR DEL JUEGO",
 		                    JOptionPane.YES_NO_OPTION, 
 		                    JOptionPane.QUESTION_MESSAGE 
