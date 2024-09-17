@@ -6,13 +6,14 @@ import java.util.Collections;
 public class TableroGanador {
 
     private int[][] tablero;
-    private int movimientos;
     public static final int size = 4;
 
     ArrayList<Integer> piezas = new ArrayList<>();
 
 // ------------------------------------------- C O N S T R U C T O R ------------------------------------------------------------------
+    
     public TableroGanador() {
+    	
         tablero = new int[size][size];
         piezas = new ArrayList<>();
     }
@@ -63,6 +64,7 @@ public class TableroGanador {
 //-----------------------------------------------------------------------------------------------------------------------------------------
  
     public void imprimirTablero() {
+    	
         System.out.println("Tablero:");
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {

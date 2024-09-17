@@ -26,11 +26,6 @@ public class Win {
 //-----------------------------------------------------------------------------------------------------------------------------------		
 	
 	public void panelGanador() {
-			
-			JLabel lblNewLabel_1 = new JLabel("");
-			lblNewLabel_1.setIcon(new ImageIcon(Win.class.getResource("/Imagenes/confeti.gif")));
-			lblNewLabel_1.setBounds(0, 0, 754, 701);
-			frame.getContentPane().add(lblNewLabel_1);
 
 			JLabel msjWin = new JLabel("");
 			msjWin.setHorizontalAlignment(SwingConstants.CENTER);
@@ -91,8 +86,13 @@ public class Win {
 	
 //-----------------------------------------------------------------------------------------------------------------------------------	
 	
-	public void labelFondo() {
+	public void fondo() {
 		
+			JLabel lblNewLabel_1 = new JLabel("");
+			lblNewLabel_1.setIcon(new ImageIcon(Win.class.getResource("/Imagenes/confeti.gif")));
+			lblNewLabel_1.setBounds(0, 0, 754, 701);
+			
+			frame.getContentPane().add(lblNewLabel_1);
 			JLabel lblNewLabel = new JLabel("");
 			lblNewLabel.setIcon(new ImageIcon(Win.class.getResource("/Imagenes/win.jpg")));
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -160,6 +160,6 @@ public class Win {
 			panelMovimientos();
 			botonVolverJugar();
 			botonSalirJuego();	
-			labelFondo();	
+			fondo();	
 		}
 	}

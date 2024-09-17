@@ -11,12 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
 
 import Modelos.Tablero;
 import javax.swing.ImageIcon;
-import javax.swing.DropMode;
-import javax.swing.JSplitPane;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 
@@ -79,7 +76,7 @@ public class GameOver {
 	
 //-----------------------------------------------------------------------------------------------------------------------------------	
 	
-	public void labelFondo() {
+	public void fondo() {
 		
 			JLabel Fondo = new JLabel("");
 			Fondo.setIcon(new ImageIcon(GameOver.class.getResource("/Imagenes/gameOver.gif")));
@@ -95,7 +92,7 @@ public class GameOver {
 		        public void windowClosing(WindowEvent e) {
 		            int opcionElegida = JOptionPane.showConfirmDialog(
 		                    frame,
-		                    "¿Seguro que quiere salir?",
+		                    "ï¿½Seguro que quiere salir?",
 		                    "SALIR DEL JUEGO",
 		                    JOptionPane.YES_NO_OPTION, 
 		                    JOptionPane.QUESTION_MESSAGE 
@@ -147,6 +144,6 @@ public class GameOver {
 			panelMovimientos();
 			botonVolverJugar();
 			botonSalirJuego();	
-			labelFondo();	
+			fondo();	
 		}
 	}

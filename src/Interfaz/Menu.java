@@ -16,7 +16,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-import java.awt.Frame;
 
 public class Menu {
 
@@ -132,7 +131,7 @@ public class Menu {
 	
 //-----------------------------------------------------------------------------------------------------------------------------------
 
-	private void preguntarAlSalir() {
+	public void preguntarAlSalir() {
 		
 	    frame.addWindowListener(new WindowAdapter() {
 	        public void windowClosing(WindowEvent e) {
