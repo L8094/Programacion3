@@ -39,7 +39,7 @@ public class Juego {
 	private JButton[][] botones; 
 	
     boolean mostrarNumeros = false;
-    private int limiteMovParaPerder= 10;
+    private int limiteMovParaPerder= 500;
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------
